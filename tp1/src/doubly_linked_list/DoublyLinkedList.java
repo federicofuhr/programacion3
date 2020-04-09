@@ -1,31 +1,50 @@
-package tp1;
+package doubly_linked_list;
 
-public class MySimpleLinkedList{
+public class DoublyLinkedList{
 	
 	protected Node first;
 	protected Node last;
 	protected int size;
 	
 	
-	public MySimpleLinkedList() {
+	public DoublyLinkedList() {
+		// TODO Auto-generated constructor stub
 		this.first = null;
 		this.last = null;
 		this.size = 0;
 	}
 	
 	public void insertFront(Object o) {
-		Node tmp = new Node(o,null);
-		tmp.setNext(this.first);
-		this.first = tmp;
+		Node tmp = new Node(o,null,null);
+		
+		if (!this.isEmpty()) {
+			tmp.setNext(this.first);
+			this.first.setPrevious(tmp);
+			this.first = tmp;
+		} else {
+			this.first = tmp;
+			this.last = this.first;
+		}
+		
 		this.size++;
 	}
 	
 	public void insertLast(Object o) {
-		Node tmp = new Node(o, null);
-		this.last.setNext(tmp);
-		tmp.setNext(this.last);
-		this.last = tmp;
+		Node tmp = new Node(o, null, null);
+		
+		if (!this.isEmpty()) {
+			tmp.setPrevious(this.last);
+			this.last.setNext(tmp);
+			this.last = tmp;	
+		} else {
+			this.last = tmp;
+		}
+		
 		this.size++;
+		
+		if (this.size() == 1) {
+			this.first = last;
+		}
 	}
 	
 	public void insertOrdered(Object o) {
@@ -35,7 +54,7 @@ public class MySimpleLinkedList{
 			} else if ((Integer)this.last.getInfo() < (Integer)o) {
 				insertLast(o);
 			} else {
-				Node nuevo = new Node(o, null);
+				Node nuevo = new Node(o, null ,null);
 				
 				Node n = this.first;
 				Node n2 = null;
@@ -46,7 +65,9 @@ public class MySimpleLinkedList{
 				}
 				
 				n2.setNext(nuevo);
+				nuevo.setPrevious(n2);
 				nuevo.setNext(n);
+				n.setPrevious(nuevo);
 				
 				this.size++;
 			}
@@ -126,6 +147,18 @@ public class MySimpleLinkedList{
 				n = n.getNext();
 			}
 			s += "]";
+			
+			s += "[";
+			n = this.last;
+			for (int i = this.size(); i > 0; i--) {
+				if (i > 1)
+					s += n.getInfo() + ", ";
+				else
+					s += n.getInfo();
+				n = n.getPrevious();
+			}
+			s += "]";
+			
 			return s;
 		}
 		return "LISTA VACIA";
@@ -133,7 +166,7 @@ public class MySimpleLinkedList{
 	
 	
 	public void reverse() {
-		MySimpleLinkedList l = new MySimpleLinkedList();
+		DoublyLinkedList l = new DoublyLinkedList();
 		
 		Node n = this.first;
 		
@@ -145,9 +178,9 @@ public class MySimpleLinkedList{
 		this.first = l.first;
 	}
 	
-	public MySimpleLinkedList getOrderList(MySimpleLinkedList l) {
+	public DoublyLinkedList getOrderList(DoublyLinkedList l) {
 		
-		MySimpleLinkedList r = new MySimpleLinkedList();
+		DoublyLinkedList r = new DoublyLinkedList();
 		
 		int i = 0;
 		
@@ -180,8 +213,8 @@ public class MySimpleLinkedList{
 		return r;
 	}
 	
-	public MySimpleLinkedList difference(MySimpleLinkedList l) {
-		MySimpleLinkedList r = new MySimpleLinkedList();
+	public DoublyLinkedList difference(DoublyLinkedList l) {
+		DoublyLinkedList r = new DoublyLinkedList();
 		
 		int i = 0;
 		
@@ -195,6 +228,23 @@ public class MySimpleLinkedList{
 		}
 		
 		return r;
+	}
+	
+	public boolean isPalindrome() {
+		boolean res = true;
+		
+		Node l = this.first;
+		Node r = this.last;
+		
+		while ((l != r) && (res)) {
+			if (!l.getInfo().equals(r.getInfo())) {
+				res = false;
+			}
+			l = l.getNext();
+			r = r.getPrevious();
+		}
+		
+		return res;
 	}
 
 }

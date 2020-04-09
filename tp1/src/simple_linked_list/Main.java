@@ -1,4 +1,4 @@
-package tp1;
+package simple_linked_list;
 
 
 public class Main {
@@ -24,10 +24,10 @@ public class Main {
 		Object o2 = 100;
 		
 		System.out.println("LISTA: " + list);
-//		System.out.println("LA CANTIDAD ES: " + list.size);
-//		System.out.println("ELEMENTO EN EL LUGAR " + index + " : " + list.get(index));
-//		System.out.println("ESTA EL ELEMENTO " + o1 + ": " + list.indexOf(o1));
-//		System.out.println("ESTA EL ELEMENTO " + o2 + ": " + list.indexOf(o2));
+		System.out.println("LA CANTIDAD ES: " + list.size);
+		System.out.println("ELEMENTO EN EL LUGAR " + index + " : " + list.get(index));
+		System.out.println("ESTA EL ELEMENTO " + o1 + ": " + list.indexOf(o1));
+		System.out.println("ESTA EL ELEMENTO " + o2 + ": " + list.indexOf(o2));
 		
 		
 		MySimpleLinkedList list2 = new MySimpleLinkedList();

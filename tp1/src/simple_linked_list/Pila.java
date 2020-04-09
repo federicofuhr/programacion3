@@ -1,4 +1,4 @@
-package tp1;
+package simple_linked_list;
 
 public class Pila {
 	private MySimpleLinkedList list;
