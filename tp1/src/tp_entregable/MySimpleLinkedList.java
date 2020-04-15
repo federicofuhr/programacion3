@@ -26,8 +26,11 @@ public class MySimpleLinkedList{
 	public void insertLast(Object o) {
 		//INSERTAR EN EL ULTIMO LUGAR
 		Node tmp = new Node(o, null);
-		this.last.setNext(tmp);
-		tmp.setNext(this.last);
+		if (!this.isEmpty()) {
+			this.last.setNext(tmp);
+		} else {
+			this.first = tmp;
+		}
 		this.last = tmp;
 		this.size++;
 	}
@@ -80,6 +83,13 @@ public class MySimpleLinkedList{
 		}
 		return null;
  	}
+	
+	public Object getLastElement() {
+		if (!this.isEmpty()) {
+			return this.last.getInfo();
+		}
+		return null;
+	}
 
 	public boolean isEmpty() {
 		// OBTENER UN BOOLEANO PARA SABER SI ESTA VACIA LA LISTA
@@ -191,6 +201,43 @@ public class MySimpleLinkedList{
 		}
 		
 		return r;
+	}
+	
+	
+	public void obtenerSecuencias(MySimpleLinkedList l) {
+		
+		
+		if (!l.isEmpty()) {
+			int i = 0;
+
+			
+			MySimpleLinkedList l1 = new MySimpleLinkedList();
+			
+			while (i < l.size()) {
+			
+				if (l1.isEmpty()) {
+					l1.insertLast(l.get(i));
+				} else if ((int)l.get(i) > (int)l1.getLastElement()) {
+					l1.insertLast(l.get(i));
+				} else {
+					
+					if (l1.size() >= 2) {
+						this.insertLast(l1);
+						
+					}
+					l1 = new MySimpleLinkedList();
+					l1.insertLast(l.get(i));
+				}
+				
+				
+				i++;
+			}
+			
+			if ((!l1.isEmpty()) && (l1.size() >= 2)) {
+				this.insertLast(l1);
+			}
+		}
+		
 	}
 
 }
