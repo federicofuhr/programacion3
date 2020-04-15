@@ -204,40 +204,34 @@ public class MySimpleLinkedList{
 	}
 	
 	
-	public void obtenerSecuencias(MySimpleLinkedList l) {
+	public MySimpleLinkedList obtenerSecuencias() {
 		
+		MySimpleLinkedList res = new MySimpleLinkedList();
 		
-		if (!l.isEmpty()) {
+		if (!this.isEmpty()) {
 			int i = 0;
 
-			
 			MySimpleLinkedList l1 = new MySimpleLinkedList();
 			
-			while (i < l.size()) {
-			
+			while (i < this.size()) {
 				if (l1.isEmpty()) {
-					l1.insertLast(l.get(i));
-				} else if ((int)l.get(i) > (int)l1.getLastElement()) {
-					l1.insertLast(l.get(i));
+					l1.insertLast(this.get(i));
+				} else if ((int)this.get(i) > (int)l1.getLastElement()) {
+					l1.insertLast(this.get(i));
 				} else {
-					
 					if (l1.size() >= 2) {
-						this.insertLast(l1);
-						
+						res.insertLast(l1);
 					}
 					l1 = new MySimpleLinkedList();
-					l1.insertLast(l.get(i));
+					l1.insertLast(this.get(i));
 				}
-				
-				
 				i++;
 			}
 			
 			if ((!l1.isEmpty()) && (l1.size() >= 2)) {
-				this.insertLast(l1);
+				res.insertLast(l1);
 			}
 		}
-		
+		return res;
 	}
-
 }
