@@ -47,6 +47,23 @@ public class Main {
 		System.out.println("NUEVA LISTA CON LA DIFERENCIA: " + list.difference(list2).toString());
 		System.out.println("-------------------------------------------------");
 		
+		MySimpleLinkedList list3 = new MySimpleLinkedList();
+		
+		list3.insertOrdered(27);
+		list3.insertOrdered(101);
+		list3.insertOrdered(16);
+		list3.insertOrdered(8);
+		list3.insertOrdered(304);
+		list3.insertOrdered(27);
+		list3.insertOrdered(1);
+		list3.insertOrdered(222);
+		list3.insertOrdered(501);
+		list3.insertOrdered(26);
+		
+		System.out.println("LISTA ORDENADA: " + list3);
+		
+		System.out.println("-------------------------------------------------");
+		
 		/////////////////////////////////////////////////////////////////////////
 		
 		Pila p = new Pila();
