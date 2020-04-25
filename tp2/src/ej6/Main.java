@@ -34,11 +34,11 @@ public class Main {
 		System.out.println("Frontera: " + t.getFrontier());
 		
 		
-		int elem = (int)(Math.random() * 90 + 40);
+		Integer elem = 99;
 		System.out.println("Se encuentra el elemento " + elem + "?: " + t.hasElem(elem));
 		
-		elem = (int)(Math.random() * interval + 1);
-		System.out.println("Se encuentra el elemento " + elem + "?: " + t.hasElem(elem));
+		elem = (int)(Math.random() * list.size());
+		System.out.println("Se encuentra el elemento " + list.get(elem) + "?: " + t.hasElem(list.get(elem)));
 		
 		int level = 3;
 		System.out.println("Elementos del nivel " + level + ": " + t.getElemAtLevel(level));
