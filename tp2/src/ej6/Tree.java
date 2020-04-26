@@ -5,10 +5,12 @@ import java.util.ArrayList;
 public class Tree {
 	private Node root;
 	private int height;
+	private Integer maxElem;
 	
 	public Tree() {
 		this.root = null;
 		this.height = 0;
+		this.maxElem = 0;
 	}
 	
 	public Integer getRoot() {
@@ -24,32 +26,37 @@ public class Tree {
 	}
 	
 	public void insert(int value) {
-		if (this.root == null)
+		if (this.root == null) {
 			this.root = new Node(value);
+			this.maxElem = value;
+		}
 		else {
 			int height = 0;
-			this.insert(this.root,value, height + 1);
+			this.insert(this.root, null, value, height + 1);
 		}
 	}
 	
-	private void insert(Node actual, int value, int height) {
+	private void insert(Node actual, Node father, int value, int height) {
 		if (actual.getValue() > value) {
 			if (actual.getLeft() == null) { 
-				Node temp = new Node(value);
+				Node temp = new Node(value, actual);
 				actual.setLeft(temp);
 				if (height > this.height)
 					this.height = height;
 			} else {
-				insert(actual.getLeft(),value, height + 1);
+				insert(actual.getLeft(), actual, value, height + 1);
 			}
 		} else {
 			if (actual.getRight() == null) { 
-				Node temp = new Node(value);
+				Node temp = new Node(value, actual);
 				actual.setRight(temp);
 				if (height > this.height)
 					this.height = height;
+				if (value > this.getMaxElem()) {
+					this.maxElem = value;					
+				}
 			} else {
-				insert(actual.getRight(),value, height + 1);
+				insert(actual.getRight(), actual, value, height + 1);
 			}
 		}
 	}
@@ -99,7 +106,7 @@ public class Tree {
 	private void getLeafs(Node actual, ArrayList<Integer> list) {
 		if (actual != null) {
 			getLeafs(actual.getLeft(), list);
-			if ((actual.getLeft() == null) && (actual.getRight() == null)) {
+			if (actual.isLeaf()) {
 				list.add(actual.getValue());
 			}
 			getLeafs(actual.getRight(), list);
@@ -147,4 +154,57 @@ public class Tree {
 			getElemAtLevel(actual.getRight(), level, currentLevel + 1, list);
 		}
 	}
+	
+	public Integer getMaxElem() {
+		return (this.maxElem);
+	}
+	
+	private void getLongestBranch(Node actual, ArrayList<Integer> list, int currentLevel) {
+		// TODO Auto-generated method stub
+		if (actual != null) {
+			
+		}
+	}
+	
+	public ArrayList<Integer> getLongestBranch() {
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		int currentLevel = 0;
+		getLongestBranch(this.root, list, currentLevel);
+		return list;
+	}
+	
+//	private boolean delete(Node actual, Integer value) {
+//		// TODO Auto-generated method stub
+//		if (actual.getValue() > value) {
+//			if (actual.getLeft().getValue() != value) {
+//				return delete(actual.getLeft(), value);
+//			} else {
+//				if (actual.getLeft().isLeaf()) {
+//					actual.setLeft(null);
+//					return true;
+//				} else if (actual.getLeft().onlyHasLeft()) {
+//					actual.setLeft(actual.getLeft());
+//					return true;
+//				} else if (actual.onlyHasRight()) {
+//					actual.setLeft(actual.getRight());
+//					return true;
+//				} else {
+//					return true;
+//				}
+//			}			
+//		} else if (actual.getValue() < value) {
+//			return delete(actual.getRight(), value);
+//		} else if (actual.getValue() == value) {
+//			
+//		}
+//		return false;
+//	}
+//	
+//	public boolean delete(Integer value) {
+//		if (this.hasElem(value)) {
+//			return delete(this.root, value);
+//		}
+//		return false;
+//	}
+	
 }
