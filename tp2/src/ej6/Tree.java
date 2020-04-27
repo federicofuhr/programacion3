@@ -8,17 +8,13 @@ public class Tree {
 	private Node root;
 	private int height;
 	private Integer maxElem;
-	private Node deeperElem;
+	private ArrayList<Node> deeperElements;
 	
 	public Tree() {
 		this.root = null;
 		this.height = 0;
 		this.maxElem = 0;
-		this.deeperElem = null;
-	}
-	
-	public Node getDeeperElem() {
-		return (this.deeperElem);
+		this.deeperElements = new ArrayList<Node>();
 	}
 	
 	public Integer getRoot() {
@@ -37,7 +33,7 @@ public class Tree {
 		if (this.root == null) {
 			this.root = new Node(value);
 			this.maxElem = value;
-			this.deeperElem = this.root;
+			this.deeperElements.add(this.root);
 		}
 		else {
 			int height = 0;
@@ -54,7 +50,10 @@ public class Tree {
 				temp.setFather(actual);
 				if (height > this.height) {
 					this.height = height;
-					this.deeperElem = temp;
+					this.deeperElements.clear();
+					this.deeperElements.add(temp);
+				} else if (height == this.height) {
+					this.deeperElements.add(temp);
 				}
 			} else {
 				insert(actual.getLeft(), actual, value, height + 1);
@@ -66,7 +65,10 @@ public class Tree {
 				temp.setFather(actual);
 				if (height > this.height) {
 					this.height = height;
-					this.deeperElem = temp;
+					this.deeperElements.clear();
+					this.deeperElements.add(temp);
+				} else if (height == this.height) {
+					this.deeperElements.add(temp);
 				}
 				if (value > this.getMaxElem()) {
 					this.maxElem = value;					
@@ -175,20 +177,24 @@ public class Tree {
 		return (this.maxElem);
 	}
 	
+	
 	public void getLongestBranch(Node actual, ArrayList<Integer> list) {
 		if (actual != null) {
-			list.add(actual.getValue());
 			getLongestBranch(actual.getFather(), list);
+			list.add(actual.getValue());
 		}
 	}
 	
-	public ArrayList<Integer> getLongestBranch() {
-		ArrayList<Integer> list = new ArrayList<Integer>();
+	public ArrayList<ArrayList<Integer>> getLongestBranch() {
+		ArrayList<ArrayList<Integer>> temp = new ArrayList<ArrayList<Integer>>();
 		
-		getLongestBranch(this.deeperElem, list);
-		Collections.reverse(list);
+		for (int i = 0; i < this.deeperElements.size(); i++) {
+			ArrayList<Integer> list = new ArrayList<Integer>();
+			getLongestBranch(this.deeperElements.get(i), list);
+			temp.add(list);
+		}
 		
-		return list;
+		return temp;
 	}
 	
 	
