@@ -10,14 +10,30 @@ public class Main {
 		
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		
-		int max_elements = 15;
-		int interval = 40;
-		while (list.size() != max_elements) {
-			Integer i = (int)(Math.random() * interval + 1);
-			if (!list.contains(i)) {
-				list.add(i);
-			}
-		}
+//		int max_elements = 15;
+//		int interval = 40;
+//		while (list.size() != max_elements) {
+//			Integer i = (int)(Math.random() * interval + 1);
+//			if (!list.contains(i)) {
+//				list.add(i);
+//			}
+//		}
+		
+		list.add(10);
+		list.add(4);
+		list.add(25);
+		list.add(1);
+		list.add(6);
+		list.add(15);
+		list.add(50);
+		list.add(5);
+		list.add(7);
+		list.add(12);
+		list.add(20);
+		list.add(30);
+		list.add(55);
+		list.add(26);
+		list.add(100);
 		
 		System.out.println("Lista de elementos:" + list);
 		
@@ -40,10 +56,12 @@ public class Main {
 		elem = (int)(Math.random() * list.size());
 		System.out.println("Se encuentra el elemento " + list.get(elem) + "?: " + t.hasElem(list.get(elem)));
 		
-		int level = 3;
+		int level = 1;
 		System.out.println("Elementos del nivel " + level + ": " + t.getElemAtLevel(level));
 		
 		System.out.println("El elemento mas grande es: " + t.getMaxElem());
+		
+		System.out.println("Rama más grande: " + t.getLongestBranch());
 		
 	}
 

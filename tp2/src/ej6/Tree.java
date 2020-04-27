@@ -1,16 +1,24 @@
 package ej6;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 
 public class Tree {
 	private Node root;
 	private int height;
 	private Integer maxElem;
+	private Node deeperElem;
 	
 	public Tree() {
 		this.root = null;
 		this.height = 0;
 		this.maxElem = 0;
+		this.deeperElem = null;
+	}
+	
+	public Node getDeeperElem() {
+		return (this.deeperElem);
 	}
 	
 	public Integer getRoot() {
@@ -29,9 +37,11 @@ public class Tree {
 		if (this.root == null) {
 			this.root = new Node(value);
 			this.maxElem = value;
+			this.deeperElem = this.root;
 		}
 		else {
 			int height = 0;
+			
 			this.insert(this.root, null, value, height + 1);
 		}
 	}
@@ -41,8 +51,11 @@ public class Tree {
 			if (actual.getLeft() == null) { 
 				Node temp = new Node(value, actual);
 				actual.setLeft(temp);
-				if (height > this.height)
+				temp.setFather(actual);
+				if (height > this.height) {
 					this.height = height;
+					this.deeperElem = temp;
+				}
 			} else {
 				insert(actual.getLeft(), actual, value, height + 1);
 			}
@@ -50,8 +63,11 @@ public class Tree {
 			if (actual.getRight() == null) { 
 				Node temp = new Node(value, actual);
 				actual.setRight(temp);
-				if (height > this.height)
+				temp.setFather(actual);
+				if (height > this.height) {
 					this.height = height;
+					this.deeperElem = temp;
+				}
 				if (value > this.getMaxElem()) {
 					this.maxElem = value;					
 				}
@@ -159,19 +175,22 @@ public class Tree {
 		return (this.maxElem);
 	}
 	
-	private void getLongestBranch(Node actual, ArrayList<Integer> list, int currentLevel) {
-		// TODO Auto-generated method stub
+	public void getLongestBranch(Node actual, ArrayList<Integer> list) {
 		if (actual != null) {
-			
+			list.add(actual.getValue());
+			getLongestBranch(actual.getFather(), list);
 		}
 	}
 	
 	public ArrayList<Integer> getLongestBranch() {
 		ArrayList<Integer> list = new ArrayList<Integer>();
-		int currentLevel = 0;
-		getLongestBranch(this.root, list, currentLevel);
+		
+		getLongestBranch(this.deeperElem, list);
+		Collections.reverse(list);
+		
 		return list;
 	}
+	
 	
 //	private boolean delete(Node actual, Integer value) {
 //		// TODO Auto-generated method stub
