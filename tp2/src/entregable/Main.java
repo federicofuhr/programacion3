@@ -3,12 +3,9 @@ package entregable;
 import java.util.ArrayList;
 
 public class Main {
-
-	public static void main(String[] args) {
-		// CREADO EL ARBOL
-		Tree t = new Tree();
-		
-		// CREO UNA LISTA PARA GUARDAR VALORES ALEATORIOS
+	
+	public static void randomTree(Tree t) {
+		// ESTA FUNCION CARGA UN ARBOL CON 15 ELEMENTOS ALEATORIOS
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		
 		int max_elements = 15;
@@ -23,10 +20,31 @@ public class Main {
 		for (Integer integer : list) {
 			t.insert(integer);
 		}
+	}
 
-		System.out.println("Lista de elementos: " + list);
+	public static void main(String[] args) {
+		// CREADO EL ARBOL
+		Tree t = new Tree();
 		
+		t.insert(10);
+		t.insert(4);
+		t.insert(25);
+		t.insert(1);
+		t.insert(6);
+		t.insert(15);
+		t.insert(50);
+		t.insert(5);
+		t.insert(7);
+		t.insert(12);
+		t.insert(20);
+		t.insert(30);
+		t.insert(55);
+		t.insert(26);
+		t.insert(100);
+		
+		System.out.println("CASO DE PRUEBA:");
 		System.out.println();
+		
 		t.printPreOrder();
 		t.printInOrder();
 		t.printPosOrder();
@@ -40,8 +58,8 @@ public class Main {
 		Integer elem = 99;
 		System.out.println("Se encuentra el elemento " + elem + "?: " + t.hasElem(elem));
 		
-		elem = (int)(Math.random() * list.size());
-		System.out.println("Se encuentra el elemento " + list.get(elem) + "?: " + t.hasElem(list.get(elem)));
+		elem = 50;
+		System.out.println("Se encuentra el elemento " + elem + "?: " + t.hasElem(elem));
 		
 		
 		System.out.println();
@@ -55,14 +73,38 @@ public class Main {
 		System.out.println();
 		System.out.println("Rama más grande: " + t.getLongestBranch());
 		
-		System.out.println("Se pudo borrar el elemento " + list.get(elem) + "?: " + t.delete(list.get(elem)));
+		int borrar = 10;
+		System.out.println("Se pudo borrar el elemento " + borrar + "? Que es el caso de 2 hijos: " + t.delete(borrar));
 		
 		System.out.println();
 		t.printPreOrder();
 		System.out.println("Altura: " + t.getHeight());
 		System.out.println("Rama más grande: " + t.getLongestBranch());
 		
+		borrar = 26;
+		System.out.println();
+		System.out.println("Se pudo borrar el elemento " + borrar + "? Que es el caso de ser hoja: " + t.delete(borrar));
 		
+		System.out.println();
+		t.printPreOrder();
+		System.out.println("Altura: " + t.getHeight());
+		System.out.println("Rama más grande: " + t.getLongestBranch());
+		
+		borrar = 6;
+		System.out.println();
+		System.out.println("Se pudo borrar el elemento " + borrar + "? Que es el caso de tener solo una rama: " + t.delete(borrar));
+		
+		System.out.println();
+		t.printPreOrder();
+		System.out.println("Altura: " + t.getHeight());
+		System.out.println("Rama más grande: " + t.getLongestBranch());
+		
+		System.out.println("-------------------------------------------------------------");
+		
+		System.out.println("GENERAR ARBOL ALEATORIO: ");
+		Tree t1 = new Tree();		
+		randomTree(t1);
+		t1.printPreOrder();
 	}
 
 }
