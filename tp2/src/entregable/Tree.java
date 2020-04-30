@@ -270,7 +270,7 @@ public class Tree {
 							} else {
 								// SI TIENE 2 HIJOS ENTONCES BUSCO AL MAYOR DE LA RAMA IZQUIERDA
 								Integer maxElem = this.getMaxElem(actual.getRight().getLeft());
-								delete(actual.getRight().getLeft(), maxElem);
+								delete(actual.getRight(), maxElem);
 								actual.getRight().setValue(maxElem);
 							}
 							this.height = this.updateHeight(getNodeRoot());
@@ -294,7 +294,7 @@ public class Tree {
 							} else {
 								// SI TIENE 2 HIJOS ENTONCES BUSCO AL MAYOR DE LA RAMA DERECHA
 								Integer maxElem = this.getMaxElem(actual.getLeft().getLeft());
-								delete(actual.getLeft().getLeft(), maxElem);
+								delete(actual.getLeft(), maxElem);
 								actual.getLeft().setValue(maxElem);
 							}
 							this.height = this.updateHeight(getNodeRoot());
@@ -304,9 +304,6 @@ public class Tree {
 						}
 				}				
 			} else {
-				
-				
-				
 				if (actual.onlyHasLeft()) {
 					// SI EL HIJO IZQUIERDO SOLO TIENE UN HIJO IZQUIERDO ESTE SE VUELVE SU NUEVO HIJO IZQUIERDO
 					actual = actual.getLeft();
@@ -321,15 +318,14 @@ public class Tree {
 				}
 				this.height = this.updateHeight(getNodeRoot());
 				return true;
-				
-			
-				
 			}
 		}
 		return false;
 	}
 	
 	public boolean delete(Integer i) {
+		// ESTE METODO RETORNA EL RESULTADO DE QUERER ELIMINAR UN ELEMENTO
+		// LLAMA AL METODO RECURSIVO
 		if (this.hasElem(i)) {
 			return (this.delete(this.root, i));			
 		}

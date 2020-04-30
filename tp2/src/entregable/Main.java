@@ -21,19 +21,19 @@ public class Main {
 		
 		list.add(10);
 		list.add(4);
-//		list.add(25);
+		list.add(25);
 		list.add(1);
 		list.add(6);
-//		list.add(15);
-//		list.add(50);
+		list.add(15);
+		list.add(50);
 		list.add(5);
 		list.add(7);
-//		list.add(12);
-//		list.add(20);
-//		list.add(30);
-//		list.add(55);
-//		list.add(26);
-//		list.add(100);
+		list.add(12);
+		list.add(20);
+		list.add(30);
+		list.add(55);
+		list.add(26);
+		list.add(100);
 		
 		System.out.println("Lista de elementos:" + list);
 		
@@ -63,7 +63,7 @@ public class Main {
 		
 		System.out.println("Rama más grande: " + t.getLongestBranch());
 		
-		int borrar = 4;
+		int borrar = 100;
 		System.out.println("BORRAR ELEMENTO " + borrar + ": " + t.delete(borrar));
 		
 		t.printPreOrder();
