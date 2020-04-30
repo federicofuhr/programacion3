@@ -13,10 +13,6 @@ public class Tree {
 		this.height = 0;
 	}
 	
-	private Node getNodeRoot() {
-		return this.root;
-	}
-	
 	public Integer getRoot() {
 		// ESTE METODO RETORNA EL ELEMENTO DE LA RAIZ
 		// COMPLEJIDAD O(1)
@@ -251,13 +247,14 @@ public class Tree {
 	}
 	
 	private boolean delete(Node actual, Integer i) {
-		// TODO Auto-generated method stub
+		// ESTE METODO SE ENCARDA DE BORRAR EL ELEMENTO PASADO POR PARAMETRO
+		// TIENE COMPLEJIDAD O(LOG(N))² * O(N) POR TENER QUE BUSCAR AL MAYOR DE LA RAMA MENOR
 		if (actual != null) {
 			if (actual.getValue() != i) {				
 				if (actual.getValue() < i) {
 					if (actual.getRight() != null)
 						if (actual.getRight().getValue() == i)  {
-							// EL PADRE ENCUENTRA EL ELEMENTO EN EL HIJO DERECHO
+								// EL PADRE ENCUENTRA EL ELEMENTO EN EL HIJO DERECHO
 							if (actual.getRight().isLeaf()) {
 								// SI ES HOJA EL HIJO DERECHO SE VUELVE NULL
 								actual.setRight(null);
@@ -273,7 +270,6 @@ public class Tree {
 								delete(actual.getRight(), maxElem);
 								actual.getRight().setValue(maxElem);
 							}
-							this.height = this.updateHeight(getNodeRoot());
 							return true;
 						} else {
 							return delete(actual.getRight(), i);
@@ -281,7 +277,7 @@ public class Tree {
 				} else if (actual.getValue() > i) {
 					if (actual.getLeft() != null)	
 						if (actual.getLeft().getValue() == i) {
-							// EL PADRE ENCUENTRA EL ELEMENTO EN EL HIJO IZQUIERDO
+								// EL PADRE ENCUENTRA EL ELEMENTO EN EL HIJO IZQUIERDO
 							if (actual.getLeft().isLeaf()) {
 								// SI ES HOJA EL HIJO IZQUIERDO SE VUELVE NULL
 								actual.setLeft(null);
@@ -292,31 +288,20 @@ public class Tree {
 								// SI EL HIJO IZQUIERDO SOLO TIENE UN HIJO DERECHO ESTE SE VUELVE SU NUEVO HIJO IZQUIERDO
 								actual.setLeft(actual.getLeft().getRight());
 							} else {
-								// SI TIENE 2 HIJOS ENTONCES BUSCO AL MAYOR DE LA RAMA DERECHA
+								// SI TIENE 2 HIJOS ENTONCES BUSCO AL MAYOR DE LA RAMA IZQUIERDA
 								Integer maxElem = this.getMaxElem(actual.getLeft().getLeft());
 								delete(actual.getLeft(), maxElem);
 								actual.getLeft().setValue(maxElem);
 							}
-							this.height = this.updateHeight(getNodeRoot());
 							return true;
 						} else {
 							return delete(actual.getLeft(), i);
 						}
 				}				
 			} else {
-				if (actual.onlyHasLeft()) {
-					// SI EL HIJO IZQUIERDO SOLO TIENE UN HIJO IZQUIERDO ESTE SE VUELVE SU NUEVO HIJO IZQUIERDO
-					actual = actual.getLeft();
-				} else if (actual.onlyHasRight()) {
-					// SI EL HIJO IZQUIERDO SOLO TIENE UN HIJO DERECHO ESTE SE VUELVE SU NUEVO HIJO IZQUIERDO
-					actual = actual.getRight();
-				} else {
-					// SI TIENE 2 HIJOS ENTONCES BUSCO AL MAYOR DE LA RAMA DERECHA
-					Integer maxElem = this.getMaxElem(actual.getLeft());
-					delete(actual, maxElem);
-					actual.setValue(maxElem);
-				}
-				this.height = this.updateHeight(getNodeRoot());
+				Integer maxElem = this.getMaxElem(actual.getLeft());
+				delete(actual, maxElem);
+				actual.setValue(maxElem);
 				return true;
 			}
 		}
@@ -325,9 +310,12 @@ public class Tree {
 	
 	public boolean delete(Integer i) {
 		// ESTE METODO RETORNA EL RESULTADO DE QUERER ELIMINAR UN ELEMENTO
-		// LLAMA AL METODO RECURSIVO
+		// LLAMA AL METODO RECURSIVO DE BORRAR Y EL METODO RECURSIVO PARA ACTUALIZAR ALTURA
 		if (this.hasElem(i)) {
-			return (this.delete(this.root, i));			
+			if (this.delete(this.root, i)) {
+				this.height = this.updateHeight(this.root);
+				return true;
+			}			
 		}
 		return false;
 	}
