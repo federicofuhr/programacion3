@@ -12,13 +12,6 @@ public class Node {
 		this.left = null;
 		this.right = null;
 	}
-	
-	public Node(Integer value, Node father) {
-		super();
-		this.value = value;
-		this.left = null;
-		this.right = null;
-	}
 
 	public Integer getValue() {
 		return value;

@@ -32,35 +32,35 @@ public class Tree {
 			this.root = new Node(value);
 		} else {
 			int height = 1;
-			this.insert(this.root, null, value, height + 1);
+			this.insert(this.root, value, height + 1);
 		}
 	}
 	
-	private Node newNode(Integer value, Node actual, int height) {
+	private Node newNode(Integer value, int height) {
 		// ESTE METODO PRIVADO MODIFICA LA VARIABLE ALTURA Y RETORNA UN NUEVO NODO
 		// LA COMPLEJIDAD ES O(1)
-		Node temp = new Node(value, actual);
+		Node temp = new Node(value);
 		if (height > this.height)
 			this.height = height;
 		return temp;
 	}
 	
-	private void insert(Node actual, Node father, int value, int height) {
+	private void insert(Node actual, int value, int height) {
 		// ESTE METODO SE ENCARGA DE INSERTAR EL NODO EN EL LUGAR CORRESPIENTE
 		// AL MOVERSE POR LAS RAMAS SEGUN UN CRITERIO LA COMPLEJIDAD ES O(LOG(N)) SIENDO N LA CANTIDAD DE ELEMENTOS
 		if (actual.getValue() > value) {
 			if (actual.getLeft() == null) { 
-				Node temp = newNode(value, actual, height);
+				Node temp = newNode(value, height);
 				actual.setLeft(temp);
 			} else {
-				insert(actual.getLeft(), actual, value, height + 1);
+				insert(actual.getLeft(), value, height + 1);
 			}
 		} else {
 			if (actual.getRight() == null) { 
-				Node temp = newNode(value, actual, height);
+				Node temp = newNode(value, height);
 				actual.setRight(temp);
 			} else {
-				insert(actual.getRight(), actual, value, height + 1);
+				insert(actual.getRight(), value, height + 1);
 			}
 		}
 	}
