@@ -104,7 +104,9 @@ public class Main {
 		System.out.println("GENERAR ARBOL ALEATORIO: ");
 		Tree t1 = new Tree();		
 		randomTree(t1);
+		
 		t1.printPreOrder();
+		System.out.println("Altura: " + t1.getHeight());
 	}
 
 }
