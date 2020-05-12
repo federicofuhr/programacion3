@@ -27,7 +27,7 @@ public class Tree {
 	
 	public void insert(int value) {
 		// ESTE METODO INSERTA UN ELEMENTO EN EL ARBOL
-		// AL SER EL CASO QUE LA RAIZ ES NULA ENTONCES SU COMPLEJIDAD ES O(1) Y LUEGO LLAMA AL METODO RECURSIVO
+		// SU COMPLEJIDAD ES O(LOG(N)) POR LLAMAR AL METODO RECURSIVO
 		if (this.root == null) {
 			this.root = new Node(value);
 		} else {
@@ -48,6 +48,7 @@ public class Tree {
 	private void insert(Node actual, int value, int height) {
 		// ESTE METODO SE ENCARGA DE INSERTAR EL NODO EN EL LUGAR CORRESPIENTE
 		// AL MOVERSE POR LAS RAMAS SEGUN UN CRITERIO LA COMPLEJIDAD ES O(LOG(N)) SIENDO N LA CANTIDAD DE ELEMENTOS
+		// LA COMPLEJIDAD ES O(LOG(N)) SIEMPRE QUE SE ASUMA QUE EL ARBOL ESTA BALANCEADO
 		if (actual.getValue() > value) {
 			if (actual.getLeft() == null) { 
 				Node temp = newNode(value, height);
@@ -75,12 +76,12 @@ public class Tree {
 		}
 	}
 	
-	public void printPreOrder() {
+	public ArrayList<Integer> printPreOrder() {
 		// ESTE METODO CREA UNA LISTA PARA CARGARLA CON LOS ELEMENTOS DE ESTA ESTRUCTURA EN FORMA DE PRE ORDER
-		// ESTE LLAMA AL METODO RECURSIVO
+		// ESTE LLAMA AL METODO RECURSIVO POR LO QUE SU COMPLEJIDAD ES O(N)
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		printPreOrder(this.root, list);
-		System.out.println("Pre order: " + list);
+		return list;
 	}
 	
 	private void printInOrder(Node actual, ArrayList<Integer> list) {
@@ -93,12 +94,12 @@ public class Tree {
 		}
 	}
 	
-	public void printInOrder() {
+	public ArrayList<Integer> printInOrder() {
 		// ESTE METODO CREA UNA LISTA PARA CARGARLA CON LOS ELEMENTOS DE ESTA ESTRUCTURA EN FORMA DE IN ORDER
-		// ESTE LLAMA AL METODO RECURSIVO
+		// ESTE LLAMA AL METODO RECURSIVO POR LO QUE SU COMPLEJIDAD ES O(N)
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		printInOrder(this.root, list);
-		System.out.println("In Order: " + list);
+		return list;
 	}
 	
 	private void printPosOrder(Node actual, ArrayList<Integer> list) {
@@ -111,12 +112,12 @@ public class Tree {
 		}
 	}
 	
-	public void printPosOrder() {
+	public ArrayList<Integer> printPosOrder() {
 		// ESTE METODO CREA UNA LISTA PARA CARGARLA CON LOS ELEMENTOS DE ESTA ESTRUCTURA EN FORMA DE POS ORDER
-		// ESTE LLAMA AL METODO RECURSIVO
+		// ESTE LLAMA AL METODO RECURSIVO POR LO QUE SU COMPLEJIDAD ES O(N)
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		printPosOrder(this.root, list);
-		System.out.println("Pos Order: " + list);
+		return list;
 	}
 	
 	private void getLeafs(Node actual, ArrayList<Integer> list) {
@@ -132,7 +133,8 @@ public class Tree {
 	}
 	
 	public ArrayList<Integer> getFrontier() {
-		// ESTE METODO RETORNA UNA LISTA QUE SE CARGA CON LAS HOJAS QUE ENCUENTRA EL METODO RECURSIVO
+		// ESTE METODO RETORNA UNA LISTA QUE SE CARGA CON LAS HOJAS QUE ENCUENTRA EL METODO RECURSIVO POR LO QUE
+		// SU COMPLEJIDAD ES O(N)
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		getLeafs(this.root, list);
 		return list;
@@ -141,6 +143,7 @@ public class Tree {
 	private boolean hasElem(Node actual, Integer i) {
 		// ESTE METODO BUSCA EL ELEMENTO PASADO POR PARAMETRO EN LA ESTRUCTURA
 		// AL RECORRER EL ARBOL POR LAS RAMAS SEGUN EL VALOR TIENE COMPLEJIDAD O(LOG(N))
+		// LA COMPLEJIDAD ES O(LOG(N)) SIEMPRE QUE SE ASUMA QUE EL ARBOL ESTA BALANCEADO
 		if (actual != null) {
 			if (actual.getValue() > i) {
 				return hasElem(actual.getLeft(), i);			
@@ -155,6 +158,8 @@ public class Tree {
 	
 	public boolean hasElem(Integer i) {
 		// ESTE METODO RETORNA UN V/F DEPENDIENDO DEL RESULTADO DEL METODO RECURSIVO DE BUSCAR EN LA ESTRUCTURA
+		// POR LO QUE SU COMPLEJIDAD ES O(LOG(N))
+		// LA COMPLEJIDAD ES O(LOG(N)) SIEMPRE QUE SE ASUMA QUE EL ARBOL ESTA BALANCEADO
 		return hasElem(this.root, i);
 	}
 
@@ -172,7 +177,7 @@ public class Tree {
 	
 	public ArrayList<Integer> getElemAtLevel(Integer level) {
 		// ESTE METODO RETORNA LA LISTA DE LOS ELEMENTOS QUE SE ENCUENTRAN EN UN DETERMINADO NIVEL
-		// CUYA LISTA SE LLAMA POR EL METODO RECURSIVO
+		// CUYA LISTA SE LLAMA POR EL METODO RECURSIVO POR LO QUE SU COMPLEJIDAD ES O(N)
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		if (!this.isEmpty()) {
 			int currentLevel = 1;
@@ -184,18 +189,18 @@ public class Tree {
 	private Integer getMaxElem(Node actual) {
 		// ESTE METODO BUSCA DE FORMA RECURSIVA EL VALOR MAS GRANDE DE LA ESTRUCTURA
 		// AL BUSCARLO SEGUN SU VALOR TIENE COMPLEJIDAD O(LOG(N))
-		if (actual != null) {
-			if (actual.getValue() < getMaxElem(actual.getRight()))
-				return getMaxElem(actual.getRight());
-			else
-				return (actual.getValue());
+		// LA COMPLEJIDAD ES O(LOG(N)) SIEMPRE QUE SE ASUMA QUE EL ARBOL ESTA BALANCEADO
+		if (actual.getRight() != null) {
+			return getMaxElem(actual.getRight());
+		} else {
+			return actual.getValue();
 		}
-		return 0;
 	}
 	
 	public Integer getMaxElem() {
 		// ESTE METODO RETORNA EL VALOR MAS GRANDE DE LA ESTRUCTURA
-		// SE ENCARGA DE LLAMAR AL METODO RECURSIVO CON EL NODO RAIZ
+		// SE ENCARGA DE LLAMAR AL METODO RECURSIVO CON EL NODO RAIZ POR LO QUE SU COMPLEJIDAD ES O(LOG(N))
+		// LA COMPLEJIDAD ES O(LOG(N)) SIEMPRE QUE SE ASUMA QUE EL ARBOL ESTA BALANCEADO
 		return getMaxElem(this.root);
 	}
 	
@@ -237,7 +242,7 @@ public class Tree {
 	
 	public ArrayList<Integer> getLongestBranch() {
 		// ESTE METODO RETORNA LA LISTA CON LOS ELEMENTOS DE LA RAMA MAS GRANDE
-		// SE ENCARGA DE LLAMAR AL METODO RECURSIVO CON EL NODO RAIZ
+		// SE ENCARGA DE LLAMAR AL METODO RECURSIVO CON EL NODO RAIZ POR LO QUE SU COMPLEJIDAD ES O(N)
 		ArrayList<Integer> res = new ArrayList<Integer>();
 		if (!this.isEmpty()) {
 			int maxHeight = this.getHeight();
@@ -248,7 +253,8 @@ public class Tree {
 	
 	private boolean delete(Node actual, Integer i) {
 		// ESTE METODO SE ENCARDA DE BORRAR EL ELEMENTO PASADO POR PARAMETRO
-		// TIENE COMPLEJIDAD O(LOG(N))² * O(N) POR TENER QUE BUSCAR AL MAYOR DE LA RAMA MENOR
+		// TIENE COMPLEJIDAD O(LOG(N))
+		// LA COMPLEJIDAD ES O(LOG(N)) SIEMPRE QUE SE ASUMA QUE EL ARBOL ESTA BALANCEADO
 		if (actual != null) {
 			if (actual.getValue() != i) {				
 				if (actual.getValue() < i) {
@@ -311,6 +317,8 @@ public class Tree {
 	public boolean delete(Integer i) {
 		// ESTE METODO RETORNA EL RESULTADO DE QUERER ELIMINAR UN ELEMENTO
 		// LLAMA AL METODO RECURSIVO DE BORRAR Y EL METODO RECURSIVO PARA ACTUALIZAR ALTURA
+		// SU COMPLEJIDAD ES O(LOG(N)) + O(N)
+		// LA COMPLEJIDAD ES O(LOG(N)) SIEMPRE QUE SE ASUMA QUE EL ARBOL ESTA BALANCEADO
 		if (this.hasElem(i)) {
 			if (this.delete(this.root, i)) {
 				this.height = this.updateHeight(this.root);

@@ -45,9 +45,10 @@ public class Main {
 		System.out.println("CASO DE PRUEBA:");
 		System.out.println();
 		
-		t.printPreOrder();
-		t.printInOrder();
-		t.printPosOrder();
+		System.out.println("ELEMENTOS EN PRE ORDER: " + t.printPreOrder());
+		System.out.println("ELEMENTOS EN IN ORDER: " + t.printInOrder());
+		System.out.println("ELEMENTOS EN POS ORDER: " + t.printPosOrder());
+		
 		
 		System.out.println();
 		System.out.println("Altura: " + t.getHeight());
@@ -92,12 +93,20 @@ public class Main {
 		
 		borrar = 6;
 		System.out.println();
-		System.out.println("Se pudo borrar el elemento " + borrar + "? Que es el caso de tener solo una rama: " + t.delete(borrar));
+		System.out.println("Se pudo borrar el elemento " + borrar + ": " + t.delete(borrar));
+		System.out.println("Se pudo borrar el elemento " + 5 + ": " + t.delete(5));
+		System.out.println("Se pudo borrar el elemento " + 12 + ": " + t.delete(12));
+		System.out.println("Se pudo borrar el elemento " + 20 + ": " + t.delete(20));
+		System.out.println("Se pudo borrar el elemento " + 100 + ": " + t.delete(100));
+		System.out.println("Se pudo borrar el elemento " + 30 + ": " + t.delete(30));
+		System.out.println("Se pudo borrar el elemento " + 55 + ": " + t.delete(55));
+
 		
 		System.out.println();
-		t.printPreOrder();
+		System.out.println("ELEMENTOS EN PRE ORDER: " + t.printPreOrder());
 		System.out.println("Altura: " + t.getHeight());
 		System.out.println("Rama más grande: " + t.getLongestBranch());
+		System.out.println("Elemento más grande: " + t.getMaxElem());
 		
 		System.out.println("-------------------------------------------------------------");
 		
@@ -105,7 +114,7 @@ public class Main {
 		Tree t1 = new Tree();		
 		randomTree(t1);
 		
-		t1.printPreOrder();
+		System.out.println("ELEMENTOS EN PRE ORDER: " + t1.printPreOrder());
 		System.out.println("Altura: " + t1.getHeight());
 	}
 
