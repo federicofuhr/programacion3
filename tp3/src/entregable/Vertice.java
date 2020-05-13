@@ -5,21 +5,11 @@ import java.util.Iterator;
 
 public class Vertice<T> {
 	private int id;
-	private Tarea t;
 	private ArrayList<Arco<T>> arcos;
 	
-	public Vertice(int verticeId, Tarea t) {
+	public Vertice(int verticeId) {
 		id = verticeId;
-		this.t = t;
 		arcos = new ArrayList<Arco<T>>();
-	}
-	
-	public Tarea getT() {
-		return t;
-	}
-
-	public void setT(Tarea t) {
-		this.t = t;
 	}
 
 	public int getId() {
@@ -72,10 +62,10 @@ public class Vertice<T> {
 
 	@Override
 	public String toString() {
-		String s = "Vertice: " + id + "\n      Duracion de la tarea: " + t.getDuracion() + "hs\n";
+		String s = "Vertice: " + id + "\n";
 		if (!arcos.isEmpty())
 			for (Arco<T> arco : arcos) {
-				s += "      " + arco + "hs\n";
+				s += "      " + arco + "\n";
 			}
 		return s;
 	}

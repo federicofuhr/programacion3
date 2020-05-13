@@ -13,9 +13,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	}
 
 	@Override
-	public void agregarVertice(int verticeId, Tarea t) {
+	public void agregarVertice(int verticeId) {
 		// Agrego un vertice en el grafo, primero verificando que no exista
-		Vertice<T> v = new Vertice<T>(verticeId, t);
+		Vertice<T> v = new Vertice<T>(verticeId);
 		if (!this.contieneVertice(verticeId)) {
 			this.vertices.add(v);
 		}

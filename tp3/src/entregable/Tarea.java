@@ -37,7 +37,7 @@ public class Tarea {
 
 	@Override
 	public String toString() {
-		return "     Nombre: " + nombre + "\n     Descripcion: " + descripcion + "\n     Duracion: " + duracion;
+		return "Nombre: " + nombre + "\nDescripcion: " + descripcion + "\nDuracion: " + duracion;
 	}
 	
 	
