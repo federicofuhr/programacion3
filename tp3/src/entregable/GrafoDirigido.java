@@ -80,7 +80,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		// Retorna el arco de los id solicitados si existe
 		if (existeArco(verticeId1, verticeId2)) {
 			Vertice<T> v = this.obtenerVertice(verticeId1);
-			v.getArco(verticeId2);
+			return v.getArco(verticeId2);
 		}
 		return null;
 	}
