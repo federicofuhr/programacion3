@@ -12,7 +12,7 @@ public class Main {
 		ArrayList<Integer> ramaActual, ArrayList<Integer> ramaMaxima, int pesoActual) {
 		/*
 		 * Este DFS_Visit modificado va cargando una lista con la secuencia de ejecucion critica que va encontrando.
-		 * Su complejidad es O(V * A) siendo V la cantidad de vertices y A la cantidad de arcos
+		 * Su complejidad es O(A) siendo V la cantidad de vertices y A la cantidad de arcos
 		 */
 		int pesoMaximo = 0;
 		if (ramaMaxima.size() > 0) {
@@ -42,7 +42,7 @@ public class Main {
 	public static ArrayList<Integer> DFS(GrafoDirigido<Integer> grafo, ArrayList<Tarea> tareas) {
 		/* Este algoritmo es un DFS modificado que tiene como objetivo retornar la secucuencia de ejecucion
 		* critica  recorriendo todos los vertices del grafo y a su vez sus aristas con el DFS_Visit
-		* Su complejidad es O(V * A) siendo V la cantidad de vertices y A la cantidad de arcos
+		* Su complejidad es O(V + A) siendo V la cantidad de vertices y A la cantidad de arcos
 		*/
 		ArrayList<Integer> ramaMaxima = new ArrayList<Integer>();
 		Iterator<Integer> itV = grafo.obtenerVertices();
