@@ -80,7 +80,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		// Retorna el arco de los id solicitados si existe
 		if (existeArco(verticeId1, verticeId2)) {
 			Vertice<T> v = this.obtenerVertice(verticeId1);
-			v.getArco(verticeId2);
+			return v.getArco(verticeId2);
 		}
 		return null;
 	}
@@ -109,7 +109,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	@Override
 	public Iterator<Integer> obtenerAdyacentes(int verticeId) {
-		// TODO Auto-generated method stub
+		/*
+		 * 
+		 */
 		ArrayList<Integer> res = new ArrayList<Integer>();
 		Vertice<T> v = this.obtenerVertice(verticeId);
 		Iterator<Arco<T>> it = new IteradorArcos<>(v.getArcos());
@@ -121,7 +123,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	@Override
 	public Iterator<Arco<T>> obtenerArcos() {
-		// TODO Auto-generated method stub
+		/*
+		 *  Retorna el iterador de la lista que incluye todos los arcos
+		 *  de todos los vertices
+		 */
 		if (cantidadVertices() > 0) {
 			ArrayList<Arco<T>> res = new ArrayList<Arco<T>>();
 			for (Vertice<T> vertice : this.vertices) {

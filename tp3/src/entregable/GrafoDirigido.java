@@ -14,7 +14,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	@Override
 	public void agregarVertice(int verticeId) {
-		// Agrego un vertice en el grafo, primero verificando que no exista
+		/*
+		 *  Agrego un vertice en el grafo, primero verificando que no exista.
+		 *  Por lo tanto su complejidad es O(N) siendo N la cantidad de vertices
+		 */
 		Vertice<T> v = new Vertice<T>(verticeId);
 		if (!this.contieneVertice(verticeId)) {
 			this.vertices.add(v);
@@ -23,7 +26,11 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	@Override
 	public void borrarVertice(int verticeId) {
-		// Borro un vertice del grafo, eliminando tambien todos los arcos
+		/*
+		 * Busco el vertice y si existe lo borro un vertice del grafo,
+		 * eliminando su referencia tambien a todos los arcos
+		 * por lo que su complejidad es O(N²) siendo N la cantidad de vertices
+		 */
 		if (this.contieneVertice(verticeId)) {
 			this.vertices.remove(this.obtenerVertice(verticeId));
 			for (Vertice<T> vertice : vertices) {
@@ -34,7 +41,12 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	@Override
 	public void agregarArco(int verticeId1, int verticeId2, T etiqueta) {
-		// Agrega un nuevo arco al grafo
+		/*
+		 * Busca si existen los 2 vertices pasados por parametro,
+		 * si existen verifica que no exista ese arco y si no existe
+		 * lo crea. Su complejidad es O(V + A) siendo V los vertices y A
+		 * los arcos
+		 */
 		if (contieneVertice(verticeId1) && contieneVertice(verticeId2))
 			if (!this.existeArco(verticeId1, verticeId2)) {
 				Arco<T> a = new Arco<T>(verticeId1, verticeId2, etiqueta);
@@ -45,7 +57,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	@Override
 	public void borrarArco(int verticeId1, int verticeId2) {
-		// Busco el vertice origen y luego borro el arco entrando en su lista de arcos
+		/*
+		 *  Busco el vertice origen y si existe borro el arco entrando en su lista de arcos.
+		 *  Su complejidad es O(V + A) siendo V los vertices y A los arcos
+		 */
 		if (this.existeArco(verticeId1, verticeId2)) {
 			Vertice<T> v = this.obtenerVertice(verticeId1);
 			v.borrarArco(verticeId2);
@@ -54,7 +69,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	@Override
 	public boolean contieneVertice(int verticeId) {
-		// Responde con V o F si el grafo contiene un vertice con el id pasado por parametro
+		/*
+		 *  Responde con V o F si el grafo contiene un vertice con el id pasado por parametro
+		 *  La complejidad es O(N) siendo N el numero de vertices
+		 */
 		Iterator<Vertice<T>> it = this.vertices.iterator();
 		boolean exist = false;
 		while ((!exist) && (it.hasNext())) {
@@ -66,7 +84,11 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	@Override
 	public boolean existeArco(int verticeId1, int verticeId2) {
-		// Responde si existe o no un arco
+		/*
+		 *  Responde si existe o no un arco
+		 *  Siendo su complejidad O(V + A) con V de la cantidad de vertices y
+		 *  A de la cantidad de adyacentes
+		 */
 		if ((contieneVertice(verticeId1)) && (contieneVertice(verticeId2))) {
 			Arco<T> a = new Arco<T>(verticeId1, verticeId2);
 			Vertice<T> v = this.obtenerVertice(verticeId1);
@@ -77,7 +99,11 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	@Override
 	public Arco<T> obtenerArco(int verticeId1, int verticeId2) {
-		// Retorna el arco de los id solicitados si existe
+		/*
+		 *  Retorna el arco de los id solicitados si existe
+		 *  Su complejidad es O(V + A) siendo V la cantidad de vertices
+		 *  y A la cantidad de Arcos
+		 */
 		if (existeArco(verticeId1, verticeId2)) {
 			Vertice<T> v = this.obtenerVertice(verticeId1);
 			return v.getArco(verticeId2);
@@ -87,13 +113,18 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	@Override
 	public int cantidadVertices() {
-		// Retorna la cantidad de vertices
+		/*
+		 *  Retorna la cantidad de vertices por lo que la complejidad es O(1)
+		 */
 		return vertices.size();
 	}
 
 	@Override
 	public int cantidadArcos() {
-		// TODO Auto-generated method stub
+		/*
+		 *  Retorna la cantidad de arcos del grafo por lo que su complejidad
+		 *  es O(N) siendo N la cantidad de vertices
+		 */
 		int res = 0;
 		for (Vertice<T> vertice : vertices) {
 			res += vertice.getArcos().size();
@@ -103,13 +134,21 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	@Override
 	public Iterator<Integer> obtenerVertices() {
-		// Retorno un iterador para iterar en la lista de vertices
+		/*
+		 *  Retorno un iterador para iterar en la lista de vertices
+		 *  por lo que la complejidad es O(1)
+		 */
 		return (new IteradorVertice<T>(this.vertices));
 	}
 
 	@Override
 	public Iterator<Integer> obtenerAdyacentes(int verticeId) {
-		// TODO Auto-generated method stub
+		/*
+		 * Retorna el iterador de la lista de todos los id de los vertices adyacentes
+		 * de un vertice pasado por parametro.
+		 * Su complejidad es O(V + A) siendo V la cantidad de vertices y 
+		 * A la cantidad de adyacentes
+		 */
 		ArrayList<Integer> res = new ArrayList<Integer>();
 		Vertice<T> v = this.obtenerVertice(verticeId);
 		Iterator<Arco<T>> it = new IteradorArcos<>(v.getArcos());
@@ -121,7 +160,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	@Override
 	public Iterator<Arco<T>> obtenerArcos() {
-		// TODO Auto-generated method stub
+		/*
+		 * Retorna el iterador de una lista que tiene todos los arcos del grafo
+		 * La complejidad es O(N) siendo la cantidad de vertices
+		 */
 		if (cantidadVertices() > 0) {
 			ArrayList<Arco<T>> res = new ArrayList<Arco<T>>();
 			for (Vertice<T> vertice : this.vertices) {
@@ -134,7 +176,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	@Override
 	public Iterator<Arco<T>> obtenerArcos(int verticeId) {
-		// Retorno un iterador para iterar en la lista de arcos de un vertice
+		/*
+		 * Retorno un iterador de una lista de arcos de un id de un vertice dado.
+		 * La complejidad es O(N) siendo N todos los vertices del grafo
+		 */
 		if (contieneVertice(verticeId)) {
 			Vertice<T> v = this.obtenerVertice(verticeId);
 			return (new IteradorArcos<>(v.getArcos()));
@@ -143,7 +188,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	}
 	
 	private Vertice<T> obtenerVertice(int verticeId) {
-		// Retorno un vertice con el id pasado por parametro
+		/*
+		 * Retorno un vertice con el id pasado por parametro.
+		 * Su complejidad es O(N) siendo N la cantidad de vertices del grafo
+		 */
 		if (contieneVertice(verticeId)) {
 			Iterator<Vertice<T>> it = this.vertices.iterator();
 			while (it.hasNext()) {

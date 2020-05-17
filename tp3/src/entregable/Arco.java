@@ -8,6 +8,7 @@ package entregable;
 
 public class Arco<T> {
 
+	// Atributos de la clase arco
 	private int verticeOrigen;
 	private int verticeDestino;
 	private T etiqueta;
