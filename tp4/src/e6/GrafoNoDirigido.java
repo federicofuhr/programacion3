@@ -1,13 +1,13 @@
-package entregable;
+package e6;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class GrafoDirigido<T> implements Grafo<T> {
+public class GrafoNoDirigido<T> implements Grafo<T> {
 	
 	private ArrayList<Vertice<T>> vertices;
 	
-	public GrafoDirigido() {
+	public GrafoNoDirigido() {
 		// Constructor de la clase GrafoDirigido
 		vertices = new ArrayList<Vertice<T>>();
 	}
@@ -53,6 +53,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 				Arco<T> a = new Arco<T>(verticeId1, verticeId2, etiqueta);
 				Vertice<T> v = this.obtenerVertice(verticeId1);
 				v.addArco(a);
+				Arco<T> a2 = new Arco<T>(verticeId2, verticeId1, etiqueta);
+				v = this.obtenerVertice(verticeId2);
+				v.addArco(a2);
 			}	
 	}
 
@@ -65,6 +68,8 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		if (this.existeArco(verticeId1, verticeId2)) {
 			Vertice<T> v = this.obtenerVertice(verticeId1);
 			v.borrarArco(verticeId2);
+			v = this.obtenerVertice(verticeId2);
+			v.borrarArco(verticeId1);
 		}
 	}
 
@@ -203,6 +208,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 			}
 		}
 		return null;
+	}
+	
+	public boolean estaVacio() {
+		return (this.cantidadVertices() == 0);
 	}
 
 	@Override

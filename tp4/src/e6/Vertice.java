@@ -1,4 +1,4 @@
-package entregable;
+package e6;
 
 import java.util.ArrayList;
 import java.util.Iterator;

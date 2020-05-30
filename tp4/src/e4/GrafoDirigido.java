@@ -1,4 +1,4 @@
-package entregable;
+package e4;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -203,6 +203,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 			}
 		}
 		return null;
+	}
+	
+	public boolean estaVacio() {
+		return (this.cantidadVertices() == 0);
 	}
 
 	@Override

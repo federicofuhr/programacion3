@@ -8,11 +8,11 @@ import grafo.GrafoDirigido;
 
 public class Main {
 
-	public static void DFS_Visit(int vertice, char[] color, GrafoDirigido<Integer> grafo, ArrayList<Tarea> tareas,
+	public static void DFS_Visit(int vertice, GrafoDirigido<Integer> grafo, ArrayList<Tarea> tareas,
 		ArrayList<Integer> ramaActual, ArrayList<Integer> ramaMaxima, int pesoActual) {
 		/*
 		 * Este DFS_Visit modificado va cargando una lista con la secuencia de ejecucion critica que va encontrando.
-		 * Su complejidad es O(A) siendo V la cantidad de vertices y A la cantidad de arcos
+		 * Su complejidad es O(V + A) siendo V la cantidad de vertices y A la cantidad de arcos
 		 */
 		int pesoMaximo = 0;
 		if (ramaMaxima.size() > 0) {
@@ -20,15 +20,12 @@ public class Main {
 		}
 		ramaActual.add(vertice);
 		pesoActual += tareas.get(vertice).getDuracion();
-		color[vertice] = 'A';
 		Iterator<Integer> itA = grafo.obtenerAdyacentes(vertice);
 		if (itA.hasNext()) {
 			while (itA.hasNext()) {
 				int adyacente = itA.next();
-				if (color[adyacente] == 'B') {
-					Arco<Integer> arco = grafo.obtenerArco(vertice, adyacente);
-					DFS_Visit(adyacente, color, grafo, tareas, ramaActual, ramaMaxima, pesoActual + arco.getEtiqueta());
-				}
+				Arco<Integer> arco = grafo.obtenerArco(vertice, adyacente);
+				DFS_Visit(adyacente, grafo, tareas, ramaActual, ramaMaxima, pesoActual + arco.getEtiqueta());
 			}
 		} else if (pesoActual > pesoMaximo) {
 			ramaMaxima.clear();
@@ -36,7 +33,6 @@ public class Main {
 			ramaMaxima.add(pesoActual);
 		}
 		ramaActual.remove((Object) vertice);
-		color[vertice] = 'B';
 	}
 
 	public static ArrayList<Integer> DFS(GrafoDirigido<Integer> grafo, ArrayList<Tarea> tareas) {
@@ -46,18 +42,10 @@ public class Main {
 		*/
 		ArrayList<Integer> ramaMaxima = new ArrayList<Integer>();
 		Iterator<Integer> itV = grafo.obtenerVertices();
-		char[] color = new char[grafo.cantidadVertices()];
-		for (int i = 0; i < color.length; i++) {
-			color[i] = 'B';
-		}
-		while (itV.hasNext()) {
-			int vertice = itV.next();
-			if (color[vertice] == 'B') {
-				int pesoActual = 0;
+		int vertice = itV.next();
+			int pesoActual = 0;
 				ArrayList<Integer> ramaActual = new ArrayList<Integer>();
-				DFS_Visit(vertice, color, grafo, tareas, ramaActual, ramaMaxima, pesoActual);
-			}
-		}
+				DFS_Visit(vertice, grafo, tareas, ramaActual, ramaMaxima, pesoActual);
 		if (ramaMaxima.size() > 0)
 			ramaMaxima.remove(ramaMaxima.size() - 1);
 		return ramaMaxima;
